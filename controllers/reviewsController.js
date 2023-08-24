@@ -26,6 +26,19 @@ router.get("/event/:eventId", async (req, res) => {
   }
 });
 
+// GET a specific review by ID
+router.get("/:reviewId", async (req, res) => {
+  const reviewId = req.params.reviewId;
+  try {
+    const review = await reviewQueries.getReviewById(reviewId);
+    res.json(review);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+
 // POST a new review for an event
 router.post("/:eventId", async (req, res) => {
   const eventId = req.params.eventId;
@@ -38,6 +51,9 @@ router.post("/:eventId", async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 });
+
+
+
 
 // PUT/update a review by ID
 router.put("/:reviewId", async (req, res) => {

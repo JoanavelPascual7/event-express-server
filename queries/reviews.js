@@ -58,9 +58,19 @@ async function deleteReview(reviewId) {
   }
 }
 
+async function getReviewById(reviewId) {
+  try {
+    const review = await db.one("SELECT * FROM reviews WHERE id = $1", [reviewId]);
+    return review;
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   getAllReviewsForEvent,
   createReviewForEvent,
+  getReviewById,
   updateReview,
   deleteReview,
   getAllReviews
